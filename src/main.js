@@ -4,6 +4,11 @@ import genres from './util/genres';
 
 new Vue({
     el: '#app',
+    methods:{
+        checkFilter(){
+            
+        }
+    },
     components: {
         'movie-list' : {
             template: `<div id='movie-list'>
@@ -28,16 +33,32 @@ new Vue({
             template:  `<div id='movie-filter'>
                     <h2>Filter results</h2>
                     <div class='filter-group'>
-                        <check-filter v-for='genre in genres' v-bind:title='genre'></check-filter>
+                        <check-filter v-for='genre in genres' v-bind:title='genre' v-on:check-filter='checkFilter'></check-filter>
                     </div>
                 </div>`,
+            methods: {
+                checkFilter(){
+                    this.$emit('check-filter');
+                }
+            },
             components: {
                 'check-filter': {
+                    data() {
+                        return {
+                            checked: false
+                        }
+                    },
                     props: ['title'],
-                    template: `<div class='check-filter'>
+                    template: `<div v-bind:class="{'check-filter':true, active:checked}" v-on:click='checkFilter'>
                         <span class='checkbox'></span>
                         <span class='check-filter-title'>{{title}}</span>
-                    </div>`
+                    </div>`,
+                    methods: {
+                        checkFilter(){
+                            this.checked = !this.checked;
+                            this.$emit('check-filter');
+                        }
+                    }
                 }
             }
         }
