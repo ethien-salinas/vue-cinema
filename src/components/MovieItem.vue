@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class='movie'>
         <div class="movie-col-left">
             <img v-bind:src="movie.Poster">
         </div>
