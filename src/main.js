@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import './style.scss';
-import Overview from './components/Overview.vue';
 import VueResource from 'vue-resource';
 import moment from 'moment-timezone';
 import { checkFilter } from './util/bus';
@@ -27,9 +26,6 @@ new Vue({
         moment,
         day: moment(),
         bus
-    },
-    components: {
-        Overview
     },
     created(){
         this.$http.get('/api').then(response =>{
